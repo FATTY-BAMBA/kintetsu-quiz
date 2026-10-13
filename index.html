@@ -397,8 +397,12 @@
   .field input.opt{ min-height:50px; font-size:16px; }
   .field input.opt:focus{ outline:none; border-color:var(--sea); box-shadow:0 0 0 3px rgba(23,112,122,.18); }
   .consent{ background:#fff; }
-  footer{ color:#5E6E70; }
-  footer button{ color:var(--sea) !important; }
+  .restart-row{ display:flex; justify-content:center; margin-top:18px; }
+  .restart-row:has(button[hidden]){ display:none; }
+  .restart-btn{ background:transparent; border:1.5px solid rgba(14,71,80,.25); color:var(--sea-deep); border-radius:999px; padding:8px 18px; font:inherit; font-size:13.5px; font-weight:500; cursor:pointer; }
+  .restart-btn:hover{ background:#fff; border-color:var(--sea); }
+  footer{ color:#6A797B; margin-top:28px; padding-top:16px; border-top:1px solid rgba(27,42,46,.1); font-size:12px; line-height:1.7; }
+  footer p{ margin:0; }
   @media (min-width:700px){
     .hero-inner, .shell{ max-width:600px; }
     .hero h1{ font-size:38px; }
@@ -419,7 +423,11 @@
 <div class="shell">
   <div class="progress" id="progress" aria-hidden="true"></div>
   <main id="app"></main>
-  <footer>主辦單位保留活動最終解釋與變更之權利。<button id="reset-link" type="button" style="background:none;border:none;padding:0;margin-left:6px;font:inherit;color:var(--sea-deep);text-decoration:underline;cursor:pointer;">重新開始測驗</button></footer>
+  <div class="restart-row"><button id="reset-link" type="button" class="restart-btn" hidden>↺ 重新開始</button></div>
+  <footer>
+    <p>主辦單位保留修改、變更及終止本活動之權利。</p>
+    <p>參考影片將開啟外部網站（Instagram／YouTube）。</p>
+  </footer>
 </div>
 
 <script>
@@ -824,6 +832,9 @@
       if (card) card.classList.add("card--enter");
     }
     updateLeadHint();
+    var rl = document.getElementById("reset-link");
+    // 首頁、或已完成登記後不需要重新開始按鈕
+    if (rl) rl.hidden = (state.view === "landing") || (state.view === "result" && state.submitted);
     saveState();
   }
 
@@ -986,7 +997,11 @@
   });
 
   var resetLink = document.getElementById("reset-link");
-  if (resetLink) resetLink.addEventListener("click", restartQuiz);
+  if (resetLink) resetLink.addEventListener("click", function(){
+    var midQuiz = state.view === "question" && Object.keys(state.answers).length > 0;
+    if (midQuiz && !window.confirm("確定要重新開始嗎？目前的作答紀錄會被清除。")) return;
+    restartQuiz();
+  });
 
   render();
 })();
