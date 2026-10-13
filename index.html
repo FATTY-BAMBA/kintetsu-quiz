@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>近鐵鐵道旅遊小知識｜答對三題抽好禮</title>
+<meta name="description" content="近鐵旅行知多少？回答三個小問題，全對就可獲得抽獎資格！" />
+<meta name="theme-color" content="#0E4750" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_TW" />
+<meta property="og:title" content="近鐵鐵道旅遊小知識｜答對三題抽好禮" />
+<meta property="og:description" content="近鐵旅行知多少？回答三個小問題，全對就可獲得抽獎資格！" />
+<meta property="og:url" content="https://kintetsu-quiz.vercel.app/" />
+<meta property="og:image" content="https://kintetsu-quiz.vercel.app/hero.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="628" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%86%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF6EC;
+    --bg-soft:#F3ECDC;
+    --surface:#FFFFFF;
+    --surface-2:#FDF9F0;
+    --ink:#1B2A2E;
+    --ink-soft:#4B5D60;
+    --sea-deep:#0E4750;
+    --sea:#17707A;
+    --sea-soft:#D7ECEA;
+    --sunrise:#DD6B3B;
+    --sunrise-soft:#F6D9C4;
+    --gold:#A97F2E;
+    --gold-soft:#F1E2BE;
+    --correct:#2F7D5A;
+    --correct-soft:#DCEEE1;
+    --incorrect:#B94F35;
+    --incorrect-soft:#F7DCD2;
+    --border: rgba(27,42,46,0.13);
+    --shadow: rgba(14,43,48,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0D1A1C;
+      --bg-soft:#122528;
+      --surface:#152A2D;
+      --surface-2:#193034;
+      --ink:#F3EEE1;
+      --ink-soft:#B9C9C8;
+      --sea-deep:#1C4A50;
+      --sea:#57BDB6;
+      --sea-soft:#1E3B3C;
+      --sunrise:#EE9468;
+      --sunrise-soft:#3A2318;
+      --gold:#E3C077;
+      --gold-soft:#392C13;
+      --correct:#7ED2A3;
+      --correct-soft:#173428;
+      --incorrect:#F0947C;
+      --incorrect-soft:#3A2019;
+      --border: rgba(243,238,225,0.14);
+      --shadow: rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D1A1C;
+    --bg-soft:#122528;
+    --surface:#152A2D;
+    --surface-2:#193034;
+    --ink:#F3EEE1;
+    --ink-soft:#B9C9C8;
+    --sea-deep:#1C4A50;
+    --sea:#57BDB6;
+    --sea-soft:#1E3B3C;
+    --sunrise:#EE9468;
+    --sunrise-soft:#3A2318;
+    --gold:#E3C077;
+    --gold-soft:#392C13;
+    --correct:#7ED2A3;
+    --correct-soft:#173428;
+    --incorrect:#F0947C;
+    --incorrect-soft:#3A2019;
+    --border: rgba(243,238,225,0.14);
+    --shadow: rgba(0,0,0,0.55);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Noto Sans TC","Hiragino Sans","PingFang TC",sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:"Noto Serif TC",serif;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  .shell{
+    max-width:560px;
+    margin:0 auto;
+    padding:0 20px 56px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(180deg,#F4C68C 0%, #EE9C6E 32%, var(--sea) 68%, var(--sea-deep) 100%);
+  }
+  .hero-inner{
+    max-width:560px;
+    margin:0 auto;
+    padding:28px 20px 24px;
+    position:relative;
+    z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.14em;
+    color:#FFF7EA;
+    background:rgba(14,71,80,.35);
+    border:1px solid rgba(255,255,255,.35);
+    padding:5px 12px;
+    border-radius:999px;
+  }
+  .hero h1{
+    color:#FFFBF2;
+    font-size:clamp(26px,7vw,34px);
+    margin-top:14px;
+    text-shadow:0 2px 10px rgba(14,43,48,.35);
+  }
+  .hero p{
+    color:#FFF3E2;
+    font-size:15px;
+    max-width:42ch;
+    margin:10px 0 0;
+  }
+  .hero-art{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  @media (min-width: 700px){
+    .hero-art{ height:340px; object-fit:cover; object-position:center 60%; }
+  }
+
+  /* ---------- Progress ---------- */
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:18px 0 4px;
+  }
+  .progress .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--border);
+    transition:background .25s ease, transform .25s ease;
+  }
+  .progress .dot.done{background:var(--sea);}
+  .progress .dot.active{background:var(--sunrise); transform:scale(1.25);}
+  .progress .label{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:.06em;
+    margin-left:6px;
+  }
+
+  /* ---------- Card ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:24px 22px;
+    margin-top:14px;
+    box-shadow:0 14px 30px -18px var(--shadow);
+  }
+  /* 只在真的換畫面（換題、進下一題、回首頁）時才播放進場動畫；
+     同一畫面內的互動（選答案、送出看解答）改用整段重繪但不套動畫，
+     避免每次點擊都整張卡片閃一下淡入、看起來像當機。 */
+  .card.card--enter{
+    animation:rise .45s ease;
+  }
+  @keyframes rise{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card.card--enter{animation:none;}
+  }
+
+  .qkicker{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--sea);
+    letter-spacing:.1em;
+  }
+  .qtext{
+    font-family:"Noto Serif TC",serif;
+    font-size:20px;
+    font-weight:700;
+    margin-top:8px;
+    text-wrap:balance;
+  }
+
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:18px;
+  }
+  .opt{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    background:var(--surface-2);
+    border:1.5px solid var(--border);
+    border-radius:14px;
+    padding:13px 14px;
+    font-size:15px;
+    color:var(--ink);
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .opt:hover{border-color:var(--sea);}
+  .opt:active{transform:scale(.99);}
+  .opt .key{
+    flex:0 0 auto;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:var(--bg-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:13px;
+    color:var(--ink-soft);
+  }
+  .opt.selected{
+    border-color:var(--sea);
+    background:var(--sea-soft);
+  }
+  .opt.selected .key{background:var(--sea); color:#fff;}
+  .opt[disabled]{cursor:default;}
+  .opt.correct{border-color:var(--correct); background:var(--correct-soft);}
+  .opt.correct .key{background:var(--correct); color:#fff;}
+  .opt.wrong{border-color:var(--incorrect); background:var(--incorrect-soft);}
+  .opt.wrong .key{background:var(--incorrect); color:#fff;}
+
+  .btnrow{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    appearance:none;
+    border:none;
+    border-radius:12px;
+    padding:13px 20px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:filter .15s ease, transform .1s ease, opacity .15s ease;
+    flex:1 1 auto;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn:focus-visible{outline:3px solid var(--sea); outline-offset:2px;}
+  .btn-primary{background:var(--sea-deep); color:#FBF6EC;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary[disabled]{opacity:.4; cursor:not-allowed;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--sea-deep);
+    border:1.5px solid var(--border);
+  }
+  .btn-ghost:hover{border-color:var(--sea);}
+  .btn-gold{background:var(--gold); color:#2B2107;}
+  .btn-gold:hover{filter:brightness(1.06);}
+
+  .feedback{
+    margin-top:18px;
+    border-radius:14px;
+    padding:16px 16px;
+    border:1.5px solid var(--border);
+    animation:rise .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ .feedback{animation:none;} }
+  .feedback.good{background:var(--correct-soft); border-color:var(--correct);}
+  .feedback.bad{background:var(--incorrect-soft); border-color:var(--incorrect);}
+  .feedback .verdict{
+    font-weight:700;
+    font-size:15px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .feedback.good .verdict{color:var(--correct);}
+  .feedback.bad .verdict{color:var(--incorrect);}
+  .feedback .fact{
+    margin-top:8px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .video-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:14px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:var(--surface);
+    border:1.5px solid var(--sea);
+    color:var(--sea-deep);
+    font-weight:700;
+    font-size:13.5px;
+    text-decoration:none;
+  }
+  .video-link:hover{background:var(--sea-soft);}
+
+  /* ---------- Landing ---------- */
+  .prize-box{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-top:16px;
+  }
+  .prize-box .ico{font-size:22px; line-height:1;}
+  .prize-box .txt{font-size:13.5px; color:var(--ink-soft);}
+  .prize-box .txt b{color:var(--ink); font-size:14.5px;}
+
+  .rules{
+    margin-top:16px;
+    font-size:13px;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .rules li{margin-left:18px;}
+
+  /* ---------- Result ---------- */
+  .score-badge{
+    display:inline-flex;
+    align-items:baseline;
+    gap:6px;
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--sea-deep);
+    background:var(--sea-soft);
+    padding:6px 14px;
+    border-radius:999px;
+  }
+  .score-badge b{font-size:24px;}
+
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-top:14px;
+  }
+  .field label{font-size:13px; font-weight:700; color:var(--ink-soft);}
+  .field .hint{font-size:12px; color:var(--ink-soft); font-weight:400;}
+
+  .consent{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:16px;
+    padding:12px 14px;
+    background:var(--bg-soft);
+    border:1.5px solid var(--border);
+    border-radius:12px;
+  }
+  .consent input{
+    margin-top:3px;
+    width:17px;height:17px;
+    accent-color:var(--sea-deep);
+    flex:0 0 auto;
+  }
+  .consent label{font-size:12.5px; color:var(--ink-soft); line-height:1.55;}
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:28px;
+  }
+
+  [hidden]{display:none!important;}
+
+  .visually-hidden{
+    position:absolute; width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="hero-art" src="hero.jpg" width="1200" height="628" alt="近鐵沿線河畔老街景色" />
+  <div class="hero-inner">
+    <span class="eyebrow">近鐵鐵道旅遊挑戰</span>
+    <h1>近鐵鐵道旅遊小知識</h1>
+    <p>近鐵旅行知多少，回答三個小問題！全對就可獲得抽獎資格！</p>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <main id="app"></main>
+  <footer>主辦單位保留活動最終解釋與變更之權利。<button id="reset-link" type="button" style="background:none;border:none;padding:0;margin-left:6px;font:inherit;color:var(--sea-deep);text-decoration:underline;cursor:pointer;">重新開始測驗</button></footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- content -------------------------------------------------
+  // 這個活動頁本身的公開連結（分享按鈕固定用這個，不要用 window.location.href：
+  // 頁面實際是跑在 claude.ai 內部一個渲染用的 iframe 裡，網址列看到的網址跟
+  // window.location 抓到的網址不一定是同一個，之前分享按鈕複製到的就是內部
+  // 那個網址，別人打開自然會怪怪的甚至打不開）。
+  var ARTIFACT_SHARE_URL = location.origin + location.pathname; // 現在部署在自己的網址，直接用目前頁面網址分享
+
+  var GOOGLE_FORM_ID = "1FAIpQLSdihaenEG9Wo2oikynGjWVQYQnWc3mWocYl9VYyh9PWKA-5Uw";
+  var GOOGLE_FORM_VIEW_URL = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/viewform";
+  // 姓名 / 手機號碼 / Email / 身分證字號 四個題目在表單裡對應的欄位代號（從表單頁面讀取並用預填連結來回測試確認過）
+  var GOOGLE_FORM_ENTRY = {
+    name: "entry.587436264",
+    phone: "entry.1099687994",
+    email: "entry.119473525",
+    idnum: "entry.119113665"
+  };
+  var GOOGLE_FORM_POST_URL = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID + "/formResponse";
+  // true = 頁面直接把資料送進 Google 表單（玩家不用再按一次提交）。
+  // 若上線後測試發現 Sheet 沒收到資料，改成 false 就會回到「開啟預填表單」模式。
+  var DIRECT_SUBMIT = true;
+  var KINTETSU_SITE_URL = "https://www.kintetsu.co.jp/foreign/chinese-han/";
+
+  // 把使用者在頁面上填好的資料，組成 Google 表單的「預先填寫連結」。
+  // 這裡不是直接把資料用程式送出去，是因為 Claude Artifact 的安全限制
+  // 不保證能讓頁面直接把資料 POST 到外部網址（送出動作可能被瀏覽器悄悄擋
+  // 掉、卻不會顯示任何錯誤，資料就這樣不見了）。改成開一個 Google 表單、
+  // 資料已經幫使用者填好，使用者只要在 Google 自己的頁面上按「提交」，
+  // 是唯一能保證資料真的送進 Sheet 的做法。
+  function buildPrefillFormUrl(data){
+    data = normalizeLead(data);
+    var parts = [
+      GOOGLE_FORM_ENTRY.name + "=" + encodeURIComponent(data.name),
+      GOOGLE_FORM_ENTRY.phone + "=" + encodeURIComponent(data.phone),
+      GOOGLE_FORM_ENTRY.email + "=" + encodeURIComponent(data.email),
+      GOOGLE_FORM_ENTRY.idnum + "=" + encodeURIComponent(data.idnum)
+    ];
+    return GOOGLE_FORM_VIEW_URL + "?usp=pp_url&" + parts.join("&");
+  }
+
+  function normalizeLead(d){
+    return {
+      name: d.name.trim(),
+      phone: d.phone.replace(/[\s\-()]/g, ""),
+      email: d.email.trim(),
+      idnum: d.idnum.trim().toUpperCase()
+    };
+  }
+
+  // 用隱藏表單 + 隱藏 iframe 送出，任何瀏覽器（含 FB / IG / LINE 內建瀏覽器）都能送，
+  // 也不會被 CORS 擋住。
+  function postToGoogleForm(d, done){
+    var n = normalizeLead(d);
+    var frameName = "gform-sink-" + Date.now();
+    var iframe = document.createElement("iframe");
+    iframe.name = frameName; iframe.style.display = "none"; iframe.setAttribute("aria-hidden","true");
+    document.body.appendChild(iframe);
+    var form = document.createElement("form");
+    form.method = "POST"; form.action = GOOGLE_FORM_POST_URL; form.target = frameName; form.style.display = "none";
+    var fields = {};
+    fields[GOOGLE_FORM_ENTRY.name] = n.name;
+    fields[GOOGLE_FORM_ENTRY.phone] = n.phone;
+    fields[GOOGLE_FORM_ENTRY.email] = n.email;
+    fields[GOOGLE_FORM_ENTRY.idnum] = n.idnum;
+    Object.keys(fields).forEach(function(k){
+      var inp = document.createElement("input");
+      inp.type = "hidden"; inp.name = k; inp.value = fields[k];
+      form.appendChild(inp);
+    });
+    document.body.appendChild(form);
+    var finished = false;
+    function finish(){ if (finished) return; finished = true; done(); setTimeout(function(){ form.remove(); iframe.remove(); }, 3000); }
+    iframe.addEventListener("load", finish);
+    setTimeout(finish, 4000); // 保底：最多等 4 秒
+    form.submit();
+  }
+
+  var QUESTIONS = [
+    {
+      id: "q1",
+      prompt: "三重伊勢志摩有一個特有的傳統文化是什麼文化？",
+      options: [
+        { key:"A", label:"海盜文化" },
+        { key:"B", label:"海女文化" },
+        { key:"C", label:"相撲文化" }
+      ],
+      correct: "B",
+      fact: "「海女文化」在三重・伊勢志摩已流傳超過2,000年，這裡是全日本現存海女人數最多的地區，2019年更以「海女（Ama）に出逢えるまち 鳥羽・志摩」認定為日本遺產。",
+      video: { label:"看海女文化參考影片", url:"https://www.instagram.com/reel/DWWMRF3EYgZ/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==" }
+    },
+    {
+      id: "q2",
+      prompt: "前往三重伊勢志摩的近鐵觀光電車是哪一台？",
+      options: [
+        { key:"A", label:"SHIMAKAZE" },
+        { key:"B", label:"AONIYOSHI" },
+        { key:"C", label:"Blue Harmony" }
+      ],
+      correct: "A",
+      fact: "「しまかぜ（SHIMAKAZE）」是近鐵推出的豪華觀光列車，行駛於名古屋・大阪難波至伊勢志摩之間，以寬敞座席與展望車廂聞名。",
+      video: { label:"看近鐵觀光列車參考影片", url:"https://www.instagram.com/reel/C23utITPtaR/?igsi=ZjV3N2FzY2VlaHB1" }
+    },
+    {
+      id: "q3",
+      prompt: "若秋冬要前往三重伊勢志摩旅遊同時也想去吉野山賞楓，可以購買什麼券更划算？",
+      options: [
+        { key:"A", label:"近鐵二日周遊券" },
+        { key:"B", label:"近鐵一日周遊券" },
+        { key:"C", label:"近鐵五日周遊券plus" }
+      ],
+      correct: "C",
+      fact: "「近鐵電車周遊券5日券PLUS」涵蓋範圍廣及伊勢志摩與奈良吉野山一帶，是安排跨區行程時最划算的選擇。",
+      video: { label:"看周遊券參考影片", url:"https://www.youtube.com/watch?v=2Et0NuwD91Y" }
+    }
+  ];
+
+  // ---- state ------------------------------------------------
+  // 手機上常見情境：玩家在題目頁點了「參考影片」連結，
+  // 若當下是在 LINE/IG/FB 內建瀏覽器等單一分頁環境，連結可能直接在同一個
+  // 分頁開啟、蓋掉問答頁；或分頁被系統回收後用「上一頁」返回時整頁重載。
+  // 兩種情況畫面都會重新跑一次這段 script，所以把作答進度存進
+  // sessionStorage（只存在同一個分頁/同一次瀏覽，關掉分頁或開新分頁就會清空），
+  // 一載入就還原，讓玩家點上一頁回來還停在原本那一題；但換一個新分頁、
+  // 新裝置，或隔天重新打開連結，就會是全新一局，不會卡在別人玩過的畫面。
+  var STORAGE_KEY = "kintetsu-quiz-progress-v1";
+
+  function loadState(){
+    try {
+      var raw = window.sessionStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      var saved = JSON.parse(raw);
+      if (!saved || typeof saved !== "object") return null;
+      return saved;
+    } catch (err){
+      return null; // 私密瀏覽模式等情況下 sessionStorage 可能丟例外，直接當作沒有存檔
+    }
+  }
+
+  function saveState(){
+    try {
+      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (err){
+      // 存不了就算了，不影響當下畫面操作
+    }
+  }
+
+  function clearSavedState(){
+    try { window.sessionStorage.removeItem(STORAGE_KEY); } catch (err){}
+  }
+
+  var state = {
+    view: "landing",   // landing | question | result
+    qIndex: 0,
+    answers: {},        // qid -> selected key
+    revealed: {},        // qid -> bool
+    submitted: false,   // lead sent to Google Form
+    submitting: false,
+    lead: { name: "", phone: "", email: "", idnum: "", consent: false }
+  };
+
+  var restored = loadState();
+  if (restored){
+    if (["landing","question","result"].indexOf(restored.view) !== -1) state.view = restored.view;
+    if (typeof restored.qIndex === "number" && restored.qIndex >= 0 && restored.qIndex < QUESTIONS.length){
+      state.qIndex = restored.qIndex;
+    }
+    state.answers = (restored.answers && typeof restored.answers === "object") ? restored.answers : state.answers;
+    state.revealed = (restored.revealed && typeof restored.revealed === "object") ? restored.revealed : state.revealed;
+    state.submitted = !!restored.submitted;
+    state.submitting = false; // 送出中的狀態不應該跨頁保留，避免卡死在「送出中...」
+    if (restored.lead && typeof restored.lead === "object") state.lead = Object.assign({}, state.lead, restored.lead);
+  }
+
+  var app = document.getElementById("app");
+  var progressEl = document.getElementById("progress");
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+    });
+  }
+
+  function score(){
+    var n = 0;
+    for (var i=0;i<QUESTIONS.length;i++){
+      var q = QUESTIONS[i];
+      if (state.answers[q.id] === q.correct) n++;
+    }
+    return n;
+  }
+
+  function renderProgress(){
+    if (state.view !== "question"){ progressEl.innerHTML = ""; return; }
+    var html = "";
+    for (var i=0;i<QUESTIONS.length;i++){
+      var cls = "dot";
+      if (i < state.qIndex) cls += " done";
+      else if (i === state.qIndex) cls += " active";
+      html += '<span class="'+cls+'"></span>';
+    }
+    html += '<span class="label">第 '+(state.qIndex+1)+' / '+QUESTIONS.length+' 題</span>';
+    progressEl.innerHTML = html;
+  }
+
+  function renderLanding(){
+    return ''
+      + '<div class="card">'
+      +   '<div class="prize-box">'
+      +     '<div class="ico">🎁</div>'
+      +     '<div class="txt"><b>完成挑戰即可獲得抽獎資格</b><br>三題全部答對，就能登記參加抽獎（獎項由主辦單位公告）。</div>'
+      +   '</div>'
+      +   '<ul class="rules">'
+      +     '<li>共 3 題，每題單選。</li>'
+      +     '<li>每題作答後會立即顯示正確答案與參考影片。</li>'
+      +     '<li>三題全對，才能填寫資料登記抽獎資格。</li>'
+      +     '<li>系統將以身分證字號（護照號碼）判斷是否重複，同一組字號限參加一次。</li>'
+      +   '</ul>'
+      +   '<div class="btnrow">'
+      +     '<button class="btn btn-primary" data-action="start">開始挑戰</button>'
+      +   '</div>'
+      + '</div>';
+  }
+
+  function optionButtonHtml(q, o, selected, isRevealed){
+    var cls = "opt";
+    var disabledAttr = "";
+    if (isRevealed){
+      disabledAttr = "disabled";
+      if (o.key === q.correct) cls += " correct";
+      else if (o.key === selected) cls += " wrong";
+    } else if (o.key === selected){
+      cls += " selected";
+    }
+    return ''
+      + '<button type="button" class="'+cls+'" data-action="pick" data-key="'+o.key+'" '+disabledAttr+'>'
+      +   '<span class="key">'+o.key+'</span><span>'+esc(o.label)+'</span>'
+      + '</button>';
+  }
+
+  function feedbackHtmlFor(q, selected){
+    var wasCorrect = selected === q.correct;
+    return ''
+      + '<div class="feedback '+(wasCorrect?"good":"bad")+'">'
+      +   '<div class="verdict">'+(wasCorrect ? "✅ 答對了！" : ("❌ 答錯了，正確答案是 "+q.correct))+'</div>'
+      +   '<div class="fact">'+esc(q.fact)+'</div>'
+      +   '<a class="video-link" href="'+q.video.url+'" target="_blank" rel="noopener">▶ '+esc(q.video.label)+'</a>'
+      + '</div>';
+  }
+
+  function nextButtonHtml(isRevealed, selected, isLast){
+    return isRevealed
+      ? '<button class="btn btn-primary" data-action="next">'+(isLast ? "查看結果" : "下一題")+'</button>'
+      : '<button class="btn btn-primary" data-action="submit" '+(selected ? "" : "disabled")+'>送出答案</button>';
+  }
+
+  // 這個函式只在「換到新一題」時整段輸出（進場動畫也只在這時候播放）。
+  // 同一題裡選答案／送出看解答，改由 updateOptionButtons() 等函式直接
+  // 局部更新現有的 DOM 節點，不整卡重繪，畫面才不會每點一下就閃一下。
+  function renderQuestion(){
+    var q = QUESTIONS[state.qIndex];
+    var selected = state.answers[q.id];
+    var isRevealed = !!state.revealed[q.id];
+    var isLast = state.qIndex === QUESTIONS.length - 1;
+
+    var optsHtml = "";
+    for (var i=0;i<q.options.length;i++){
+      optsHtml += optionButtonHtml(q, q.options[i], selected, isRevealed);
+    }
+
+    return ''
+      + '<div class="card">'
+      +   '<div class="qkicker">Q'+(state.qIndex+1)+'</div>'
+      +   '<div class="qtext">'+esc(q.prompt)+'</div>'
+      +   '<div class="options" id="q-options">'+optsHtml+'</div>'
+      +   '<div id="q-feedback">'+(isRevealed ? feedbackHtmlFor(q, selected) : "")+'</div>'
+      +   '<div class="btnrow" id="q-actions">'+nextButtonHtml(isRevealed, selected, isLast)+'</div>'
+      + '</div>';
+  }
+
+  function updateOptionButtons(){
+    var q = QUESTIONS[state.qIndex];
+    var selected = state.answers[q.id];
+    var isRevealed = !!state.revealed[q.id];
+    var opts = app.querySelectorAll('#q-options .opt[data-key]');
+    opts.forEach(function(btn){
+      var key = btn.getAttribute("data-key");
+      btn.classList.remove("selected", "correct", "wrong");
+      if (isRevealed){
+        btn.disabled = true;
+        if (key === q.correct) btn.classList.add("correct");
+        else if (key === selected) btn.classList.add("wrong");
+      } else {
+        btn.disabled = false;
+        if (key === selected) btn.classList.add("selected");
+      }
+    });
+  }
+
+  function renderResult(){
+    var s = score();
+    var pass = s === QUESTIONS.length;
+
+    if (pass && !state.submitted){
+      var l = state.lead;
+      var canSubmit = leadValid() && !state.submitting;
+      return ''
+        + '<div class="card">'
+        +   '<span class="score-badge">答對 <b>'+s+'</b> / '+QUESTIONS.length+' 題</span>'
+        +   '<h2 style="margin-top:14px;font-size:22px;">🎉 恭喜，你已獲得抽獎資格！</h2>'
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">請留下您的聯絡資料，按下「送出登記」即完成抽獎登記。</p>'
+        +   '<div class="field"><label for="f-name">姓名</label>'
+        +     '<input id="f-name" class="opt" style="cursor:text;" type="text" placeholder="您的姓名" autocomplete="name" value="'+esc(l.name)+'" /></div>'
+        +   '<div class="field"><label for="f-phone">手機號碼</label>'
+        +     '<input id="f-phone" class="opt" style="cursor:text;" type="tel" placeholder="09xx-xxx-xxx" autocomplete="tel" value="'+esc(l.phone)+'" /></div>'
+        +   '<div class="field"><label for="f-email">Email</label>'
+        +     '<input id="f-email" class="opt" style="cursor:text;" type="email" placeholder="you@example.com" autocomplete="email" value="'+esc(l.email)+'" /></div>'
+        +   '<div class="field"><label for="f-idnum">身分證字號（非本國籍請填護照號碼）</label>'
+        +     '<input id="f-idnum" class="opt" style="cursor:text;" type="text" placeholder="A123456789" autocomplete="off" value="'+esc(l.idnum)+'" />'
+        +     '<span class="hint">同一組身分證字號（護照號碼）僅限參加一次，系統將以此排除重複報名。</span></div>'
+        +   '<div class="consent">'
+        +     '<input type="checkbox" id="f-consent" '+(l.consent?"checked":"")+' />'
+        +     '<label for="f-consent">本人同意主辦單位得依個人資料保護法蒐集、處理及利用本表單所填寫之個人資料，用於本次抽獎作業及後續近鐵相關旅遊活動之推廣、通知等用途。</label>'
+        +   '</div>'
+        +   '<div class="btnrow">'
+        +     '<button class="btn btn-gold" id="gform-submit" data-action="submitlead" '+(canSubmit?"":"disabled")+'>送出登記</button>'
+        +   '</div>'
+        +   '<p id="lead-hint" role="status" style="color:var(--incorrect);font-size:12.5px;margin-top:8px;min-height:1em;"></p>'
+        + (DIRECT_SUBMIT ? '' : '<p style="color:var(--ink-soft);font-size:12px;margin-top:10px;">若按鈕沒有開新分頁，也可以改用<a href="'+GOOGLE_FORM_VIEW_URL+'" target="_blank" rel="noopener" style="color:var(--sea-deep);font-weight:700;">這個表單連結</a>手動填寫。</p>')
+        + '</div>';
+    }
+
+    if (pass && state.submitted){
+      return ''
+        + '<div class="card">'
+        + (DIRECT_SUBMIT
+            ? '<h2 style="font-size:22px;">✅ 登記完成！</h2>'
+              + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">您的抽獎資料已送出，祝您中獎！</p>'
+            : '<h2 style="font-size:22px;">📝 報名表單已為您開啟</h2>'
+              + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">資料已經幫您帶入，麻煩在剛剛開啟的新分頁裡確認資料無誤後按下「提交」，才算真正完成抽獎登記。若沒看到新分頁，可以點下面這個按鈕再開一次。</p>'
+              + '<div class="btnrow"><button class="btn btn-gold" data-action="reopenform">再開一次報名表單 ↗</button></div>')
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊小知識」。得獎名單將於旅展開始前三天確認，得獎者請於旅展期間至近鐵攤位進行兌換。</p>'
+        +   '<div class="btnrow">'
+        +     '<a class="btn btn-gold" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" href="'+KINTETSU_SITE_URL+'" target="_blank" rel="noopener">前往近鐵官網 ↗</a>'
+        +     '<button class="btn btn-ghost" id="share-btn" data-action="sharelink">複製連結分享給好友</button>'
+        +   '</div>'
+        + '</div>';
+    }
+
+    return ''
+      + '<div class="card">'
+      +   '<span class="score-badge">答對 <b>'+s+'</b> / '+QUESTIONS.length+' 題</span>'
+      +   '<h2 style="margin-top:14px;font-size:22px;">再挑戰一次，集滿三個正解！</h2>'
+      +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">三題全對才能獲得抽獎資格，回顧一下參考影片，再試一次吧。</p>'
+      +   '<div class="btnrow"><button class="btn btn-primary" data-action="restart">重新挑戰</button></div>'
+      + '</div>';
+  }
+
+  var lastViewKey = null;
+
+  function computeViewKey(){
+    if (state.view === "question") return "question:" + state.qIndex;
+    if (state.view === "result"){
+      var pass = score() === QUESTIONS.length;
+      if (pass && state.submitted) return "result:done";
+      if (pass) return "result:lead";
+      return "result:retry";
+    }
+    return state.view; // "landing"
+  }
+
+  function restartQuiz(){
+    state.view = "landing";
+    state.qIndex = 0;
+    state.answers = {};
+    state.revealed = {};
+    state.submitted = false;
+    state.submitting = false;
+    state.lead = { name: "", phone: "", email: "", idnum: "", consent: false };
+    clearSavedState();
+    render();
+  }
+
+  function render(){
+    renderProgress();
+    var viewKey = computeViewKey();
+    var isNewScreen = viewKey !== lastViewKey;
+    lastViewKey = viewKey;
+
+    if (state.view === "landing") app.innerHTML = renderLanding();
+    else if (state.view === "question") app.innerHTML = renderQuestion();
+    else app.innerHTML = renderResult();
+
+    // 只有真的換到新畫面時才播放卡片進場動畫；同一畫面內的重繪（選答案、
+    // 送出中的按鈕狀態變化等）維持原樣顯示，不會整卡閃一下。
+    if (isNewScreen){
+      var card = app.querySelector(".card");
+      if (card) card.classList.add("card--enter");
+    }
+    updateLeadHint();
+    saveState();
+  }
+
+  // 台灣身分證 / 新式居留證檢查碼
+  function twIdOk(id){
+    var letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+    var code = letters.indexOf(id.charAt(0)) + 10;
+    if (code < 10) return false;
+    var sum = Math.floor(code/10) + (code%10)*9;
+    for (var i=1;i<9;i++) sum += parseInt(id.charAt(i),10) * (9-i);
+    sum += parseInt(id.charAt(9),10);
+    return sum % 10 === 0;
+  }
+  function leadProblems(){
+    var n = normalizeLead(state.lead), p = [];
+    if (!n.name) p.push("姓名");
+    if (!/^(09\d{8}|\+?\d{9,15})$/.test(n.phone)) p.push("手機號碼（例：0912345678）");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(n.email)) p.push("Email");
+    var looksTw = /^[A-Z][1289]\d{8}$/.test(n.idnum);
+    if (looksTw ? !twIdOk(n.idnum) : !/^[A-Z0-9]{6,20}$/.test(n.idnum)) p.push("身分證字號 / 護照號碼");
+    if (!state.lead.consent) p.push("勾選同意個資條款");
+    return p;
+  }
+  function leadValid(){ return leadProblems().length === 0; }
+  function updateLeadHint(){
+    var hint = document.getElementById("lead-hint");
+    if (!hint) return;
+    var p = leadProblems();
+    var anyTyped = state.lead.name || state.lead.phone || state.lead.email || state.lead.idnum;
+    hint.textContent = (p.length && anyTyped) ? ("請確認：" + p.join("、")) : "";
+  }
+
+
+  function onLeadFieldChange(e){
+    var id = e.target && e.target.id;
+    if (id === "f-name") state.lead.name = e.target.value;
+    else if (id === "f-phone") state.lead.phone = e.target.value;
+    else if (id === "f-email") state.lead.email = e.target.value;
+    else if (id === "f-idnum") state.lead.idnum = e.target.value;
+    else if (id === "f-consent") state.lead.consent = e.target.checked;
+    else return;
+    var btn = document.getElementById("gform-submit");
+    if (btn) btn.disabled = !(leadValid() && !state.submitting);
+    updateLeadHint();
+    saveState();
+  }
+  app.addEventListener("input", onLeadFieldChange);
+  app.addEventListener("change", onLeadFieldChange);
+
+  app.addEventListener("click", function(e){
+    var el = e.target.closest("[data-action]");
+    if (!el) return;
+    var action = el.getAttribute("data-action");
+
+    if (action === "start"){
+      state.view = "question";
+      state.qIndex = 0;
+      render();
+      return;
+    }
+
+    if (action === "pick"){
+      if (el.disabled) return;
+      var q = QUESTIONS[state.qIndex];
+      state.answers[q.id] = el.getAttribute("data-key");
+      // 局部更新選項樣式跟送出按鈕，不整卡重繪，避免每次點選都閃一下
+      updateOptionButtons();
+      var submitBtn = document.querySelector('#q-actions [data-action="submit"]');
+      if (submitBtn) submitBtn.disabled = false;
+      saveState();
+      return;
+    }
+
+    if (action === "submit"){
+      var q2 = QUESTIONS[state.qIndex];
+      var selected2 = state.answers[q2.id];
+      if (!selected2) return;
+      state.revealed[q2.id] = true;
+      // 同樣採局部更新：只換選項的對/錯樣式、插入解答區塊、換下方按鈕，
+      // 題目本身跟其他還沒變的內容維持原狀，不整卡重繪。
+      updateOptionButtons();
+      var feedbackEl = document.getElementById("q-feedback");
+      if (feedbackEl) feedbackEl.innerHTML = feedbackHtmlFor(q2, selected2);
+      var actionsEl = document.getElementById("q-actions");
+      var isLast2 = state.qIndex === QUESTIONS.length - 1;
+      if (actionsEl) actionsEl.innerHTML = nextButtonHtml(true, selected2, isLast2);
+      saveState();
+      return;
+    }
+
+    if (action === "next"){
+      if (state.qIndex < QUESTIONS.length - 1){
+        state.qIndex += 1;
+        render();
+      } else {
+        state.view = "result";
+        render();
+      }
+      return;
+    }
+
+    if (action === "restart"){
+      restartQuiz();
+      return;
+    }
+
+    if (action === "submitlead"){
+      if (!leadValid() || state.submitting || state.submitted) return;
+      if (!DIRECT_SUBMIT){
+        window.open(buildPrefillFormUrl(state.lead), "_blank", "noopener");
+        state.submitted = true;
+        render();
+        return;
+      }
+      state.submitting = true;
+      el.disabled = true;
+      el.textContent = "送出中…";
+      postToGoogleForm(state.lead, function(){
+        state.submitting = false;
+        state.submitted = true;
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      return;
+    }
+
+    if (action === "reopenform"){
+      window.open(buildPrefillFormUrl(state.lead), "_blank", "noopener");
+      return;
+    }
+
+    if (action === "sharelink"){
+      var shareUrl = ARTIFACT_SHARE_URL;
+      var shareData = {
+        title: "近鐵鐵道旅遊小知識",
+        text: "近鐵旅行知多少，回答三個小問題！全對就可獲得抽獎資格！",
+        url: shareUrl
+      };
+      if (navigator.share){
+        navigator.share(shareData).catch(function(){ /* 使用者取消分享，不用另外提示 */ });
+        return;
+      }
+      var btn = el;
+      var resetLabel = function(){ btn.textContent = "複製連結分享給好友"; };
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(shareUrl).then(function(){
+          btn.textContent = "已複製連結 ✓";
+          setTimeout(resetLabel, 1800);
+        }).catch(function(){
+          window.prompt("請手動複製這個連結：", shareUrl);
+        });
+      } else {
+        window.prompt("請手動複製這個連結：", shareUrl);
+      }
+      return;
+    }
+  });
+
+  var resetLink = document.getElementById("reset-link");
+  if (resetLink) resetLink.addEventListener("click", restartQuiz);
+
+  render();
+})();
+</script>
+
+</body>
+</html>
+
+</body></html>
