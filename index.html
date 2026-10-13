@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>近鐵鐵道旅遊小知識｜答對三題抽好禮</title>
 <meta name="description" content="近鐵旅行知多少？回答三個小問題，全對就可獲得抽獎資格！" />
+<meta name="color-scheme" content="light" />
 <meta name="theme-color" content="#0E4750" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="zh_TW" />
@@ -41,51 +42,6 @@
     --border: rgba(27,42,46,0.13);
     --shadow: rgba(14,43,48,0.18);
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#0D1A1C;
-      --bg-soft:#122528;
-      --surface:#152A2D;
-      --surface-2:#193034;
-      --ink:#F3EEE1;
-      --ink-soft:#B9C9C8;
-      --sea-deep:#1C4A50;
-      --sea:#57BDB6;
-      --sea-soft:#1E3B3C;
-      --sunrise:#EE9468;
-      --sunrise-soft:#3A2318;
-      --gold:#E3C077;
-      --gold-soft:#392C13;
-      --correct:#7ED2A3;
-      --correct-soft:#173428;
-      --incorrect:#F0947C;
-      --incorrect-soft:#3A2019;
-      --border: rgba(243,238,225,0.14);
-      --shadow: rgba(0,0,0,0.55);
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#0D1A1C;
-    --bg-soft:#122528;
-    --surface:#152A2D;
-    --surface-2:#193034;
-    --ink:#F3EEE1;
-    --ink-soft:#B9C9C8;
-    --sea-deep:#1C4A50;
-    --sea:#57BDB6;
-    --sea-soft:#1E3B3C;
-    --sunrise:#EE9468;
-    --sunrise-soft:#3A2318;
-    --gold:#E3C077;
-    --gold-soft:#392C13;
-    --correct:#7ED2A3;
-    --correct-soft:#173428;
-    --incorrect:#F0947C;
-    --incorrect-soft:#3A2019;
-    --border: rgba(243,238,225,0.14);
-    --shadow: rgba(0,0,0,0.55);
-  }
-
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -406,6 +362,46 @@
   .visually-hidden{
     position:absolute; width:1px;height:1px;overflow:hidden;
     clip:rect(0 0 0 0); white-space:nowrap;
+  }
+
+  /* ---------- Polish pass: one fixed light theme, stronger contrast ---------- */
+  :root{ color-scheme:light; --bg:#F6F1E6; }
+  body{ background:var(--bg); }
+  .hero{ background:linear-gradient(180deg,#105A64 0%, #0B3D45 100%); }
+  .hero-inner{ padding:22px 20px 28px; }
+  .eyebrow{ background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.4); color:#fff; }
+  .hero h1{ color:#fff; margin-top:12px; text-shadow:none; }
+  .hero p{ color:#DCEDEA; max-width:none; font-size:15.5px; }
+  .progress{ padding-top:22px; }
+  .progress .dot{ background:#D5D9D4; }
+  .progress .label{ color:#4B5D60; font-weight:500; }
+  .card{ border-color:rgba(27,42,46,.08); box-shadow:0 1px 2px rgba(14,43,48,.06), 0 16px 36px -20px rgba(14,43,48,.35); padding:26px 22px; }
+  .qkicker{ color:var(--sunrise); }
+  .qtext{ font-size:21px; line-height:1.45; }
+  .opt{ background:#fff; border-color:rgba(27,42,46,.18); min-height:54px; font-weight:500; }
+  .opt:hover:not([disabled]){ border-color:var(--sea); background:#F3F9F8; }
+  .opt .key{ background:#EAF1F0; color:var(--sea-deep); }
+  .opt.correct{ background:#E4F3E9; }
+  .opt.wrong{ background:#FBE6DF; }
+  .btn{ min-height:52px; font-size:16px; letter-spacing:.06em; border-radius:14px; }
+  .btn-primary{ background:var(--sea-deep); color:#fff; box-shadow:0 6px 16px -8px rgba(14,71,80,.7); }
+  .btn-primary[disabled], .btn-gold[disabled]{ opacity:1; background:#E3E6E2; color:#7A8789; box-shadow:none; }
+  .btn-gold{ background:#C98A22; color:#fff; box-shadow:0 6px 16px -8px rgba(169,127,46,.8); }
+  .btn-gold:hover{ filter:brightness(1.05); }
+  .btn-ghost{ background:#fff; color:var(--sea-deep); border:1.5px solid rgba(14,71,80,.35); }
+  .feedback{ border-width:1.5px; }
+  .feedback .fact{ color:#33464A; font-size:14.5px; line-height:1.7; }
+  .video-link{ background:var(--sea-deep); color:#fff; border:none; padding:11px 18px; }
+  .video-link:hover{ background:var(--sea); }
+  .score-badge{ background:var(--sea-deep); color:#fff; }
+  .field input.opt{ min-height:50px; font-size:16px; }
+  .field input.opt:focus{ outline:none; border-color:var(--sea); box-shadow:0 0 0 3px rgba(23,112,122,.18); }
+  .consent{ background:#fff; }
+  footer{ color:#5E6E70; }
+  footer button{ color:var(--sea) !important; }
+  @media (min-width:700px){
+    .hero-inner, .shell{ max-width:600px; }
+    .hero h1{ font-size:38px; }
   }
 </style>
 </head>
@@ -855,9 +851,12 @@
   function updateLeadHint(){
     var hint = document.getElementById("lead-hint");
     if (!hint) return;
-    var p = leadProblems();
-    var anyTyped = state.lead.name || state.lead.phone || state.lead.email || state.lead.idnum;
-    hint.textContent = (p.length && anyTyped) ? ("請確認：" + p.join("、")) : "";
+    // 只提示「已經填了但格式不對」的欄位；全部填完才提醒勾選同意，避免還在填就整排紅字
+    var l = state.lead, p = leadProblems(), show = [];
+    var filled = { "手機號碼（例：0912345678）": l.phone, "Email": l.email, "身分證字號 / 護照號碼": l.idnum };
+    p.forEach(function(x){ if (filled[x] && filled[x].trim()) show.push(x); });
+    if (!l.consent && l.name.trim() && l.phone.trim() && l.email.trim() && l.idnum.trim() && !show.length) show.push("勾選同意個資條款");
+    hint.textContent = show.length ? ("請確認：" + show.join("、")) : "";
   }
 
 
