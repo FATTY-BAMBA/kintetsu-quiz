@@ -397,6 +397,7 @@
   .field input.opt{ min-height:50px; font-size:16px; }
   .field input.opt:focus{ outline:none; border-color:var(--sea); box-shadow:0 0 0 3px rgba(23,112,122,.18); }
   .consent{ background:#fff; }
+  .card > .prize-box:first-child{ margin-top:0; }
   .restart-row{ display:flex; justify-content:center; margin-top:18px; }
   .restart-row:has(button[hidden]){ display:none; }
   .restart-btn{ background:transparent; border:1.5px solid rgba(14,71,80,.25); color:var(--sea-deep); border-radius:999px; padding:8px 18px; font:inherit; font-size:13.5px; font-weight:500; cursor:pointer; }
@@ -509,6 +510,10 @@
     setTimeout(finish, 4000); // 保底：最多等 4 秒
     form.submit();
   }
+
+  // 活動截止：2026/11/4 23:59（台灣時間）。之後首頁按鈕會變成「活動已結束」，也不能再送出登記
+  var CAMPAIGN_END = new Date("2026-11-04T23:59:59+08:00").getTime();
+  function campaignEnded(){ return Date.now() > CAMPAIGN_END; }
 
   var QUESTIONS = [
     {
@@ -645,13 +650,16 @@
       +     '<div class="txt"><b>完成挑戰即可獲得抽獎資格</b><br>三題全部答對，就能登記參加抽獎（獎項由主辦單位公告）。</div>'
       +   '</div>'
       +   '<ul class="rules">'
+      +     '<li><b>活動期間：即日起至 11/4</b></li>'
       +     '<li>共 3 題，每題單選。</li>'
       +     '<li>每題作答後會立即顯示正確答案與參考影片。</li>'
       +     '<li>三題全對，才能填寫資料登記抽獎資格。</li>'
       +     '<li>系統將以身分證字號（護照號碼）判斷是否重複，同一組字號限參加一次。</li>'
       +   '</ul>'
       +   '<div class="btnrow">'
-      +     '<button class="btn btn-primary" data-action="start">開始挑戰</button>'
+      +     (campaignEnded()
+              ? '<button class="btn btn-primary" disabled>活動已結束，感謝參與</button>'
+              : '<button class="btn btn-primary" data-action="start">開始挑戰</button>')
       +   '</div>'
       + '</div>';
   }
@@ -754,7 +762,7 @@
         +     '<span class="hint">同一組身分證字號（護照號碼）僅限參加一次，系統將以此排除重複報名。</span></div>'
         +   '<div class="consent">'
         +     '<input type="checkbox" id="f-consent" '+(l.consent?"checked":"")+' />'
-        +     '<label for="f-consent">本人同意主辦單位得依個人資料保護法蒐集、處理及利用本表單所填寫之個人資料，用於本次抽獎作業及後續近鐵相關旅遊活動之推廣、通知等用途。</label>'
+        +     '<label for="f-consent">本人同意日本近鐵集團得依個人資料保護法蒐集、處理及利用本表單所填寫之個人資料，用於本次抽獎作業及後續近鐵相關旅遊活動之推廣、通知等用途。</label>'
         +   '</div>'
         +   '<div class="btnrow">'
         +     '<button class="btn btn-gold" id="gform-submit" data-action="submitlead" '+(canSubmit?"":"disabled")+'>送出登記</button>'
@@ -773,7 +781,7 @@
             : '<h2 style="font-size:22px;">📝 報名表單已為您開啟</h2>'
               + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">資料已經幫您帶入，麻煩在剛剛開啟的新分頁裡確認資料無誤後按下「提交」，才算真正完成抽獎登記。若沒看到新分頁，可以點下面這個按鈕再開一次。</p>'
               + '<div class="btnrow"><button class="btn btn-gold" data-action="reopenform">再開一次報名表單 ↗</button></div>')
-        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊小知識」。得獎名單將於旅展開始前三天確認，得獎者請於旅展期間至近鐵攤位進行兌換。</p>'
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊小知識」。得獎名單將於「ITF台灣國際旅展」開始前三天確認，得獎者請於旅展期間至近鐵攤位進行兌換。</p>'
         +   '<div class="btnrow">'
         +     '<a class="btn btn-gold" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" href="'+KINTETSU_SITE_URL+'" target="_blank" rel="noopener">前往近鐵官網 ↗</a>'
         +     '<button class="btn btn-ghost" id="share-btn" data-action="sharelink">複製連結分享給好友</button>'
@@ -946,6 +954,7 @@
 
     if (action === "submitlead"){
       if (!leadValid() || state.submitting || state.submitted) return;
+      if (campaignEnded()){ alert("活動已於 11/4 結束，感謝您的參與！"); return; }
       if (!DIRECT_SUBMIT){
         window.open(buildPrefillFormUrl(state.lead), "_blank", "noopener");
         state.submitted = true;
