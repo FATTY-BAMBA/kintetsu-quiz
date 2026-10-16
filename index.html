@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>近鐵鐵道旅遊小知識｜答對三題抽好禮</title>
-<meta name="description" content="近鐵旅行知多少？回答三個小問題，全對就可獲得抽獎資格！" />
+<title>近鐵鐵道旅遊知識王｜答對三題換小禮物</title>
+<meta name="description" content="近鐵旅行知多少？回答三個小問題，全對，可於ITF台灣國際旅展11/6-11/9期間至近鐵攤位兌換小禮物！" />
 <meta name="color-scheme" content="light" />
 <meta name="theme-color" content="#0E4750" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="zh_TW" />
-<meta property="og:title" content="近鐵鐵道旅遊小知識｜答對三題抽好禮" />
-<meta property="og:description" content="近鐵旅行知多少？回答三個小問題，全對就可獲得抽獎資格！" />
+<meta property="og:title" content="近鐵鐵道旅遊知識王｜答對三題換小禮物" />
+<meta property="og:description" content="近鐵旅行知多少？回答三個小問題，全對，可於ITF台灣國際旅展11/6-11/9期間至近鐵攤位兌換小禮物！" />
 <meta property="og:url" content="https://www.kintetsu-quiz.online/" />
 <meta property="og:image" content="https://www.kintetsu-quiz.online/hero.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -398,6 +398,9 @@
   .field input.opt:focus{ outline:none; border-color:var(--sea); box-shadow:0 0 0 3px rgba(23,112,122,.18); }
   .consent{ background:#fff; }
   .card > .prize-box:first-child{ margin-top:0; }
+  .opt-sub{ color:var(--ink-soft); font-size:13px; font-weight:400; margin-left:6px; letter-spacing:.02em; }
+  .fact-photo{ display:block; width:100%; height:auto; border-radius:12px; margin-top:12px; background:#eee; }
+  .gift-photo{ display:block; width:100%; max-width:360px; height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:14px; margin:16px auto 4px; }
   .restart-row{ display:flex; justify-content:center; margin-top:18px; }
   .restart-row:has(button[hidden]){ display:none; }
   .restart-btn{ background:transparent; border:1.5px solid rgba(14,71,80,.25); color:var(--sea-deep); border-radius:999px; padding:8px 18px; font:inherit; font-size:13.5px; font-weight:500; cursor:pointer; }
@@ -416,8 +419,8 @@
   <img class="hero-art" src="hero.jpg" width="1200" height="628" alt="近鐵沿線河畔老街景色" />
   <div class="hero-inner">
     <span class="eyebrow">近鐵鐵道旅遊挑戰</span>
-    <h1>近鐵鐵道旅遊小知識</h1>
-    <p>近鐵旅行知多少，回答三個小問題！全對就可獲得抽獎資格！</p>
+    <h1>近鐵鐵道旅遊知識王</h1>
+    <p>近鐵旅行知多少，回答三個小問題！<br>全對，可於ITF台灣國際旅展11/6-11/9期間至近鐵攤位兌換小禮物！</p>
   </div>
 </div>
 
@@ -526,19 +529,21 @@
       ],
       correct: "B",
       fact: "「海女文化」在三重・伊勢志摩已流傳超過2,000年，這裡是全日本現存海女人數最多的地區，2019年更以「海女（Ama）に出逢えるまち 鳥羽・志摩」認定為日本遺產。",
-      video: { label:"看海女文化參考影片", url:"https://www.instagram.com/reel/DWWMRF3EYgZ/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==" }
+      video: { label:"看海女文化參考影片", url:"https://www.instagram.com/reel/DWWMRF3EYgZ/" },
+      photo: { src:"q1-ama.jpg", alt:"伊勢志摩的海女們在海女小屋烤海鮮" }
     },
     {
       id: "q2",
       prompt: "前往三重伊勢志摩的近鐵觀光電車是哪一台？",
       options: [
-        { key:"A", label:"SHIMAKAZE" },
-        { key:"B", label:"AONIYOSHI" },
-        { key:"C", label:"Blue Harmony" }
+        { key:"A", label:"志摩之風", sub:"SHIMAKAZE" },
+        { key:"B", label:"青丹吉", sub:"AONIYOSHI" },
+        { key:"C", label:"蔚藍交響曲", sub:"Blue Harmony" }
       ],
       correct: "A",
-      fact: "「しまかぜ（SHIMAKAZE）」是近鐵推出的豪華觀光列車，行駛於名古屋・大阪難波至伊勢志摩之間，以寬敞座席與展望車廂聞名。",
-      video: { label:"看近鐵觀光列車參考影片", url:"https://www.instagram.com/reel/C23utITPtaR/?igsi=ZjV3N2FzY2VlaHB1" }
+      fact: "「志摩之風（SHIMAKAZE）」是近鐵推出的豪華觀光列車，行駛於名古屋・大阪難波至伊勢志摩之間，以寬敞座席與展望車廂聞名。",
+      video: { label:"看近鐵觀光列車參考影片", url:"https://www.instagram.com/reel/C3P76ZcvZqt/" },
+      photo: { src:"q2-shimakaze.jpg", alt:"近鐵觀光特急 志摩之風 SHIMAKAZE" }
     },
     {
       id: "q3",
@@ -550,7 +555,8 @@
       ],
       correct: "C",
       fact: "「近鐵電車周遊券5日券PLUS」涵蓋範圍廣及伊勢志摩與奈良吉野山一帶，是安排跨區行程時最划算的選擇。",
-      video: { label:"看周遊券參考影片", url:"https://www.youtube.com/watch?v=2Et0NuwD91Y" }
+      video: { label:"看周遊券參考影片", url:"https://www.youtube.com/watch?v=2Et0NuwD91Y" },
+      photo: { src:"q3-railpass.jpg", alt:"KINTETSU RAIL PASS 5day plus 周遊券" }
     }
   ];
 
@@ -647,13 +653,13 @@
       + '<div class="card">'
       +   '<div class="prize-box">'
       +     '<div class="ico">🎁</div>'
-      +     '<div class="txt"><b>完成挑戰即可獲得抽獎資格</b><br>三題全部答對，就能登記參加抽獎（獎項由主辦單位公告）。</div>'
+      +     '<div class="txt"><b>三題全對，送你小禮物！</b><br>答對三題並完成資格登記，ITF台灣國際旅展 11/6-11/9 期間至近鐵攤位即可兌換。</div>'
       +   '</div>'
       +   '<ul class="rules">'
       +     '<li><b>活動期間：即日起至 11/4</b></li>'
       +     '<li>共 3 題，每題單選。</li>'
       +     '<li>每題作答後會立即顯示正確答案與參考影片。</li>'
-      +     '<li>三題全對，才能填寫資料登記抽獎資格。</li>'
+      +     '<li>三題全對，可於 ITF 台灣國際旅展 11/6-11/9 期間至近鐵攤位兌換小禮物。</li>'
       +     '<li>系統將以身分證字號（護照號碼）判斷是否重複，同一組字號限參加一次。</li>'
       +   '</ul>'
       +   '<div class="btnrow">'
@@ -676,7 +682,7 @@
     }
     return ''
       + '<button type="button" class="'+cls+'" data-action="pick" data-key="'+o.key+'" '+disabledAttr+'>'
-      +   '<span class="key">'+o.key+'</span><span>'+esc(o.label)+'</span>'
+      +   '<span class="key">'+o.key+'</span><span>'+esc(o.label)+(o.sub ? ' <span class="opt-sub">'+esc(o.sub)+'</span>' : '')+'</span>'
       + '</button>';
   }
 
@@ -686,6 +692,7 @@
       + '<div class="feedback '+(wasCorrect?"good":"bad")+'">'
       +   '<div class="verdict">'+(wasCorrect ? "✅ 答對了！" : ("❌ 答錯了，正確答案是 "+q.correct))+'</div>'
       +   '<div class="fact">'+esc(q.fact)+'</div>'
+      +   (q.photo ? '<img class="fact-photo" src="'+q.photo.src+'" alt="'+esc(q.photo.alt)+'" decoding="async">' : '')
       +   '<a class="video-link" href="'+q.video.url+'" target="_blank" rel="noopener">▶ '+esc(q.video.label)+'</a>'
       + '</div>';
   }
@@ -749,8 +756,9 @@
       return ''
         + '<div class="card">'
         +   '<span class="score-badge">答對 <b>'+s+'</b> / '+QUESTIONS.length+' 題</span>'
-        +   '<h2 style="margin-top:14px;font-size:22px;">🎉 恭喜，你已獲得抽獎資格！</h2>'
-        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">請留下您的聯絡資料，按下「送出登記」即完成抽獎登記。</p>'
+        +   '<h2 style="margin-top:14px;font-size:22px;">🎉 恭喜！<br>你已獲得小禮物資格</h2>'
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">請留下您的聯絡資料完成資格登記，旅展期間至近鐵攤位報出姓名與身分證字號即可領取好禮。</p>'
+        +   '<img class="gift-photo" src="gift.jpg" alt="近鐵 SHIMAKAZE 小禮物組" decoding="async">'
         +   '<div class="field"><label for="f-name">姓名</label>'
         +     '<input id="f-name" class="opt" style="cursor:text;" type="text" placeholder="您的姓名" autocomplete="name" value="'+esc(l.name)+'" /></div>'
         +   '<div class="field"><label for="f-phone">手機號碼</label>'
@@ -762,7 +770,7 @@
         +     '<span class="hint">同一組身分證字號（護照號碼）僅限參加一次，系統將以此排除重複報名。</span></div>'
         +   '<div class="consent">'
         +     '<input type="checkbox" id="f-consent" '+(l.consent?"checked":"")+' />'
-        +     '<label for="f-consent">本人同意日本近鐵集團得依個人資料保護法蒐集、處理及利用本表單所填寫之個人資料，用於本次抽獎作業及後續近鐵相關旅遊活動之推廣、通知等用途。</label>'
+        +     '<label for="f-consent">本人同意日本近鐵集團得依個人資料保護法蒐集、處理及利用本表單所填寫之個人資料，用於本次活動贈品兌換作業及後續近鐵相關旅遊活動之推廣、通知等用途。</label>'
         +   '</div>'
         +   '<div class="btnrow">'
         +     '<button class="btn btn-gold" id="gform-submit" data-action="submitlead" '+(canSubmit?"":"disabled")+'>送出登記</button>'
@@ -777,11 +785,11 @@
         + '<div class="card">'
         + (DIRECT_SUBMIT
             ? '<h2 style="font-size:22px;">✅ 登記完成！</h2>'
-              + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">您的抽獎資料已送出，祝您中獎！</p>'
+              + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">您的資料已送出，恭喜您得獎！</p>'
             : '<h2 style="font-size:22px;">📝 報名表單已為您開啟</h2>'
-              + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">資料已經幫您帶入，麻煩在剛剛開啟的新分頁裡確認資料無誤後按下「提交」，才算真正完成抽獎登記。若沒看到新分頁，可以點下面這個按鈕再開一次。</p>'
+              + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">資料已經幫您帶入，麻煩在剛剛開啟的新分頁裡確認資料無誤後按下「提交」，才算真正完成資格登記。若沒看到新分頁，可以點下面這個按鈕再開一次。</p>'
               + '<div class="btnrow"><button class="btn btn-gold" data-action="reopenform">再開一次報名表單 ↗</button></div>')
-        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊小知識」。得獎名單將於「ITF台灣國際旅展」開始前三天確認，得獎者請於旅展期間至近鐵攤位進行兌換。</p>'
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊知識王」。ITF台灣國際旅展 11/6-11/9 期間，請至近鐵攤位報出姓名與身分證字號領取小禮物。</p>'
         +   '<div class="btnrow">'
         +     '<a class="btn btn-gold" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" href="'+KINTETSU_SITE_URL+'" target="_blank" rel="noopener">前往近鐵官網 ↗</a>'
         +     '<button class="btn btn-ghost" id="share-btn" data-action="sharelink">複製連結分享給好友</button>'
@@ -793,7 +801,7 @@
       + '<div class="card">'
       +   '<span class="score-badge">答對 <b>'+s+'</b> / '+QUESTIONS.length+' 題</span>'
       +   '<h2 style="margin-top:14px;font-size:22px;">再挑戰一次，集滿三個正解！</h2>'
-      +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">三題全對才能獲得抽獎資格，回顧一下參考影片，再試一次吧。</p>'
+      +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">三題全對就能兌換小禮物，回顧一下參考影片，再試一次吧！</p>'
       +   '<div class="btnrow"><button class="btn btn-primary" data-action="restart">重新挑戰</button></div>'
       + '</div>';
   }
@@ -981,8 +989,8 @@
     if (action === "sharelink"){
       var shareUrl = ARTIFACT_SHARE_URL;
       var shareData = {
-        title: "近鐵鐵道旅遊小知識",
-        text: "近鐵旅行知多少，回答三個小問題！全對就可獲得抽獎資格！",
+        title: "近鐵鐵道旅遊知識王",
+        text: "近鐵旅行知多少，回答三個小問題！全對，可於ITF台灣國際旅展11/6-11/9期間至近鐵攤位兌換小禮物！",
         url: shareUrl
       };
       if (navigator.share){
@@ -1004,6 +1012,12 @@
       return;
     }
   });
+
+  // 先在背景預載答案照片與禮物照，避免作答後照片才慢慢出現
+  setTimeout(function(){
+    QUESTIONS.forEach(function(q){ if (q.photo) (new Image()).src = q.photo.src; });
+    (new Image()).src = "gift.jpg";
+  }, 1200);
 
   var resetLink = document.getElementById("reset-link");
   if (resetLink) resetLink.addEventListener("click", function(){
