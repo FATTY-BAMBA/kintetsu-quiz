@@ -398,7 +398,9 @@
   .field input.opt:focus{ outline:none; border-color:var(--sea); box-shadow:0 0 0 3px rgba(23,112,122,.18); }
   .consent{ background:#fff; }
   .card > .prize-box:first-child{ margin-top:0; }
-  .opt-sub{ color:var(--ink-soft); font-size:13px; font-weight:400; margin-left:6px; letter-spacing:.02em; }
+  .opt-sub{ color:var(--ink-soft); font-size:13px; font-weight:400; margin-left:6px; letter-spacing:.02em; white-space:nowrap; display:inline-block; }
+  .video-link{ white-space:nowrap; }
+  @media (max-width:340px){ .video-link{ font-size:12.5px; padding:10px 14px; } }
   .fact-photo{ display:block; width:100%; height:auto; border-radius:12px; margin-top:12px; background:#eee; }
   .gift-photo{ display:block; width:100%; max-width:360px; height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:14px; margin:16px auto 4px; }
   .restart-row{ display:flex; justify-content:center; margin-top:18px; }
