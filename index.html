@@ -516,8 +516,8 @@
     form.submit();
   }
 
-  // 活動截止：2026/11/4 23:59（台灣時間）。之後首頁按鈕會變成「活動已結束」，也不能再送出登記
-  var CAMPAIGN_END = new Date("2026-11-04T23:59:59+08:00").getTime();
+  // 活動截止：2026/11/9 23:59（台灣時間）。之後首頁按鈕會變成「活動已結束」，也不能再送出登記
+  var CAMPAIGN_END = new Date("2026-11-09T23:59:59+08:00").getTime();
   function campaignEnded(){ return Date.now() > CAMPAIGN_END; }
 
   var QUESTIONS = [
@@ -658,7 +658,7 @@
       +     '<div class="txt"><b>三題全對，送你小禮物！</b><br>答對三題並完成資格登記，ITF台灣國際旅展 11/6-11/9 期間至近鐵攤位即可兌換。</div>'
       +   '</div>'
       +   '<ul class="rules">'
-      +     '<li><b>活動期間：即日起至 11/4</b></li>'
+      +     '<li><b>活動期間：即日起至 11/9</b></li>'
       +     '<li>共 3 題，每題單選。</li>'
       +     '<li>每題作答後會立即顯示正確答案與參考影片。</li>'
       +     '<li>三題全對，可於 ITF 台灣國際旅展 11/6-11/9 期間至近鐵攤位兌換小禮物。</li>'
@@ -965,7 +965,7 @@
 
     if (action === "submitlead"){
       if (!leadValid() || state.submitting || state.submitted) return;
-      if (campaignEnded()){ alert("活動已於 11/4 結束，感謝您的參與！"); return; }
+      if (campaignEnded()){ alert("活動已於 11/9 結束，感謝您的參與！"); return; }
       if (!DIRECT_SUBMIT){
         window.open(buildPrefillFormUrl(state.lead), "_blank", "noopener");
         state.submitted = true;
