@@ -662,7 +662,7 @@
       +     '<li>共 3 題，每題單選。</li>'
       +     '<li>每題作答後會立即顯示正確答案與參考影片。</li>'
       +     '<li>三題全對，可於 ITF 台灣國際旅展 11/6-11/9 期間至近鐵攤位兌換小禮物。</li>'
-      +     '<li>系統將以身分證字號（護照號碼）判斷是否重複，同一組字號限參加一次。</li>'
+      +     '<li>每人限參加一次，系統將以手機號碼及身分證字號（護照號碼）判斷是否重複。</li>'
       +   '</ul>'
       +   '<div class="btnrow">'
       +     (campaignEnded()
@@ -759,7 +759,7 @@
         + '<div class="card">'
         +   '<span class="score-badge">答對 <b>'+s+'</b> / '+QUESTIONS.length+' 題</span>'
         +   '<h2 style="margin-top:14px;font-size:22px;">🎉 恭喜！<br>你已獲得小禮物資格</h2>'
-        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">請留下您的聯絡資料完成資格登記，旅展期間至近鐵攤位報出姓名與身分證字號即可領取好禮。</p>'
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">請留下您的聯絡資料完成資格登記，旅展期間至近鐵攤位報出姓名與手機號碼即可領取好禮。</p>'
         +   '<img class="gift-photo" src="gift.jpg" alt="近鐵 SHIMAKAZE 小禮物組" decoding="async">'
         +   '<div class="field"><label for="f-name">姓名</label>'
         +     '<input id="f-name" class="opt" style="cursor:text;" type="text" placeholder="您的姓名" autocomplete="name" value="'+esc(l.name)+'" /></div>'
@@ -767,9 +767,9 @@
         +     '<input id="f-phone" class="opt" style="cursor:text;" type="tel" placeholder="09xx-xxx-xxx" autocomplete="tel" value="'+esc(l.phone)+'" /></div>'
         +   '<div class="field"><label for="f-email">Email</label>'
         +     '<input id="f-email" class="opt" style="cursor:text;" type="email" placeholder="you@example.com" autocomplete="email" value="'+esc(l.email)+'" /></div>'
-        +   '<div class="field"><label for="f-idnum">身分證字號（非本國籍請填護照號碼）</label>'
+        +   '<div class="field"><label for="f-idnum">身分證字號（選填，非本國籍請填護照號碼）</label>'
         +     '<input id="f-idnum" class="opt" style="cursor:text;" type="text" placeholder="A123456789" autocomplete="off" value="'+esc(l.idnum)+'" />'
-        +     '<span class="hint">同一組身分證字號（護照號碼）僅限參加一次，系統將以此排除重複報名。</span></div>'
+        +     '<span class="hint">選填。若有填寫，同一組身分證字號（護照號碼）僅限參加一次。</span></div>'
         +   '<div class="consent">'
         +     '<input type="checkbox" id="f-consent" '+(l.consent?"checked":"")+' />'
         +     '<label for="f-consent">本人同意日本近鐵集團得依個人資料保護法蒐集、處理及利用本表單所填寫之個人資料，用於本次活動贈品兌換作業及後續近鐵相關旅遊活動之推廣、通知等用途。</label>'
@@ -791,7 +791,7 @@
             : '<h2 style="font-size:22px;">📝 報名表單已為您開啟</h2>'
               + '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:8px;">資料已經幫您帶入，麻煩在剛剛開啟的新分頁裡確認資料無誤後按下「提交」，才算真正完成資格登記。若沒看到新分頁，可以點下面這個按鈕再開一次。</p>'
               + '<div class="btnrow"><button class="btn btn-gold" data-action="reopenform">再開一次報名表單 ↗</button></div>')
-        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊知識王」。ITF台灣國際旅展 11/6-11/9 期間，請至近鐵攤位報出姓名與身分證字號領取小禮物。</p>'
+        +   '<p style="color:var(--ink-soft);font-size:14.5px;margin-top:16px;">感謝參加「近鐵鐵道旅遊知識王」。ITF台灣國際旅展 11/6-11/9 期間，請至近鐵攤位報出姓名與手機號碼領取小禮物。</p>'
         +   '<div class="gift-tags"><span class="gift-tag">🎁 每人贈送乙份</span><span class="gift-tag gift-tag--hot">數量有限・送完為止</span></div>'
         +   '<div class="btnrow">'
         +     '<a class="btn btn-gold" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;" href="'+KINTETSU_SITE_URL+'" target="_blank" rel="noopener">前往近鐵官網 ↗</a>'
@@ -873,7 +873,8 @@
     if (!/^(09\d{8}|\+?\d{9,15})$/.test(n.phone)) p.push("手機號碼（例：0912345678）");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(n.email)) p.push("Email");
     var looksTw = /^[A-Z][1289]\d{8}$/.test(n.idnum);
-    if (looksTw ? !twIdOk(n.idnum) : !/^[A-Z0-9]{6,20}$/.test(n.idnum)) p.push("身分證字號 / 護照號碼");
+    // 選填：有填才檢查格式
+    if (n.idnum && (looksTw ? !twIdOk(n.idnum) : !/^[A-Z0-9]{6,20}$/.test(n.idnum))) p.push("身分證字號 / 護照號碼");
     if (!state.lead.consent) p.push("勾選同意個資條款");
     return p;
   }
@@ -885,7 +886,7 @@
     var l = state.lead, p = leadProblems(), show = [];
     var filled = { "手機號碼（例：0912345678）": l.phone, "Email": l.email, "身分證字號 / 護照號碼": l.idnum };
     p.forEach(function(x){ if (filled[x] && filled[x].trim()) show.push(x); });
-    if (!l.consent && l.name.trim() && l.phone.trim() && l.email.trim() && l.idnum.trim() && !show.length) show.push("勾選同意個資條款");
+    if (!l.consent && l.name.trim() && l.phone.trim() && l.email.trim() && !show.length) show.push("勾選同意個資條款");
     hint.textContent = show.length ? ("請確認：" + show.join("、")) : "";
   }
 
